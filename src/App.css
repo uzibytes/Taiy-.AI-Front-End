@@ -24,6 +24,7 @@
   color: white;
 }
 
+/* 
 .App-link {
   color: #61dafb;
 }
@@ -34,5 +35,44 @@
   }
   to {
     transform: rotate(360deg);
+  }
+} */
+
+
+/* General Layout */
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+
+.content {
+  overflow-y: auto;
+  width: 100%;
+}
+
+
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .content {
+    
   }
 }
