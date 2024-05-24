@@ -46,6 +46,6 @@ You will also see any lint errors in the console.
 
 ## Deployment
 
-This app is deployed on Vercel. You can access it [here](http://localhost:3000).
+This app is deployed on ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white). You can access it [here](https://contact-management-app-gules.vercel.app/).
 
-<h1 align="center"> THANK YOU </h1>
+<h3 align="center"> THANK YOU </h3>
