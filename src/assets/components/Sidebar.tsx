@@ -17,6 +17,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, closeSidebar }
       <button className="hamburger" onClick={toggleSidebar}>
         {isOpen ? '✖' : '☰'}
       </button>
+      {/* Navigation links */}
       <nav className="shift">
         <div className="pb-4 text-xl font-bold">DASHBOARD</div>
         <ul>
@@ -37,6 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, closeSidebar }
           </li>
         </ul>
       </nav>
+      {/* Foooter for Sidebar */}
       <div className="sidebar-footer">
         <a href="https://linkedin.com/in/uraj" target="_blank" rel="noopener noreferrer">
           <img src={linkedinLogo} alt="LinkedIn Logo" className="logo" />

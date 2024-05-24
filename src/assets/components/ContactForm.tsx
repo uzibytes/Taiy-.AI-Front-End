@@ -4,25 +4,28 @@ import {
   addContact,
   deleteContact,
   updateContact,
-  setContactsFromLocalStorage // Import the action
-} from "../redux/contactsSlice"; // Update the path if needed
+  setContactsFromLocalStorage
+} from "../redux/contactsSlice";
 import { RootState } from "../redux/store";
 import "../../public/ContactForm.css";
 
+// ContactForm component
 const ContactForm: React.FC = () => {
+  // State variables for form inputs and flags
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [status, setStatus] = useState<"active" | "inactive">("inactive");
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false); 
   const [editId, setEditId] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState("");
+
   const dispatch = useDispatch();
   const contacts = useSelector((state: RootState) => state.contacts.contacts);
 
   // Load contacts from local storage on component mount
   useEffect(() => {
-    dispatch(setContactsFromLocalStorage()); // Use setContactsFromLocalStorage instead of setContacts
+    dispatch(setContactsFromLocalStorage());
   }, [dispatch]);
 
   // Save contacts to local storage whenever contacts state changes
@@ -30,7 +33,7 @@ const ContactForm: React.FC = () => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
-
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!firstName || !lastName) {
@@ -39,13 +42,16 @@ const ContactForm: React.FC = () => {
     }
 
     if (isEditing && editId) {
+      // Update existing contact
       dispatch(updateContact({ id: editId, firstName, lastName, status }));
       setIsEditing(false);
       setEditId(null);
     } else {
+      // Add new contact
       dispatch(addContact(firstName, lastName, status));
     }
 
+    // Reset form fields and hide the form
     setFirstName("");
     setLastName("");
     setStatus("inactive");
@@ -53,9 +59,11 @@ const ContactForm: React.FC = () => {
     setError("");
   };
 
+  // Handle edit button click
   const handleEdit = (id: string) => {
     const contact = contacts.find((c) => c.id === id);
     if (contact) {
+      // Populate form fields with contact data for editing
       setFirstName(contact.firstName);
       setLastName(contact.lastName);
       setStatus(contact.status);
@@ -66,6 +74,7 @@ const ContactForm: React.FC = () => {
     }
   };
 
+  // Handle delete button click
   const handleDelete = (id: string) => {
     dispatch(deleteContact(id));
   };

@@ -52,6 +52,7 @@ const Dashboard: React.FC = () => {
     fetchData();
   }, []);
 
+  // Process historical data for chart display
   const processHistoricalData = () => {
     if (!historicalData) return { labels: [], datasets: [] };
 
@@ -88,6 +89,7 @@ const Dashboard: React.FC = () => {
     };
   };
 
+  // Chart.js options for zoom and pan
   const chartOptions = {
     responsive: true,
     plugins: {
@@ -109,6 +111,7 @@ const Dashboard: React.FC = () => {
     },
   };
 
+  // Render map with country markers
   const renderMap = () => (
     <MapContainer center={[20, 0]} zoom={2} style={{ height: '500px', width: '100%' }}>
       <TileLayer

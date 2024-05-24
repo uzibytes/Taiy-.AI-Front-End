@@ -23,6 +23,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
 
   return (
     <header className="header sticky">
+      {/* Hamburger for responsive and mobile view */}
       <button className="hamburger" onClick={toggleSidebar}>
         {isSidebarOpen ? '✖' : '☰'}
       </button>
