@@ -11,7 +11,7 @@ This project is created for [Taiyō.AI](https://taiyo.ai/) : Frontend Engineer C
 
 2. Install dependencies:
     ```sh
-    npm install
+    npm install --legacy-peer-deps
 
 3. Run the app:
     ```sh
@@ -46,6 +46,6 @@ You will also see any lint errors in the console.
 
 ## Deployment
 
-This app is deployed on ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white). You can access it [here](https://contact-management-app-gules.vercel.app/).
+This app is deployed on ▲ Vercel. You can access it [here](https://contact-management-app-gules.vercel.app/).
 
-<h3 align="center"> THANK YOU </h3>
+<h2 align="center"> THANK YOU </h2>
