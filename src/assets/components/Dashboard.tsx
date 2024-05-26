@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Line, Pie, Bar } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -7,7 +7,7 @@ import axios from 'axios';
 import L from 'leaflet';
 import '../../public/dist/leaflet.css';
 import '../../public/Dashboard.css';
- 
+
 // Import marker icon images
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerIconRetina from 'leaflet/dist/images/marker-icon-2x.png';
@@ -111,13 +111,59 @@ const Dashboard: React.FC = () => {
     },
   };
 
+  // Pie chart data
+  const pieData = {
+    labels: ['Total Cases', 'Total Recovered', 'Total Deaths', 'Active Cases'],
+    datasets: [
+      {
+        data: globalData
+          ? [globalData.cases, globalData.recovered, globalData.deaths, globalData.active]
+          : [0, 0, 0, 0],
+        backgroundColor: ['#36A2EB', '#4BC0C0', '#FF6384', '#FFCE56'],
+        hoverBackgroundColor: ['#36A2EB', '#4BC0C0', '#FF6384', '#FFCE56'],
+      },
+    ],
+  };
+
+  // Bar chart data
+  const barData = {
+    labels: [
+      'Total Cases',
+      'Total Recovered',
+      'Total Deaths',
+      'Active Cases',
+      'Affected Countries',
+      "Today's Cases",
+      "Today's Deaths",
+      "Today's Recovered",
+    ],
+    datasets: [
+      {
+        label: 'COVID-19 Data',
+        data: globalData
+          ? [
+              globalData.cases,
+              globalData.recovered,
+              globalData.deaths,
+              globalData.active,
+              globalData.affectedCountries,
+              globalData.todayCases,
+              globalData.todayDeaths,
+              globalData.todayRecovered,
+            ]
+          : [0, 0, 0, 0, 0, 0, 0, 0],
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
   // Render map with country markers
   const renderMap = () => (
     <MapContainer center={[20, 0]} zoom={2} style={{ height: '500px', width: '100%' }}>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {countriesData.map(country => (
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      {countriesData.map((country) => (
         <Marker key={country.countryInfo._id} position={[country.countryInfo.lat, country.countryInfo.long]}>
           <Popup>
             <div>
@@ -163,12 +209,25 @@ const Dashboard: React.FC = () => {
         {isMapView ? (
           renderMap()
         ) : (
-          <Line data={processHistoricalData()} options={chartOptions} />
+          <>
+            <div className="mt-4">
+              <Line data={processHistoricalData()} options={chartOptions} />
+            </div>
+          </>
         )}
       </div>
+
       {globalData && (
         <div className="global-data mt-5 p-4 bg-white rounded-lg shadow-md">
           <h3 className="text-xl font-semibold mb-4">Global COVID-19 Statistics</h3>
+          <div className="flex flex-wrap justify-around my-4">
+              <div className="w-full md:w-1/3 p-2">
+                <Pie data={pieData} />
+              </div>
+              <div className="w-full md:w-1/2 p-2">
+                <Bar data={barData} />
+              </div>
+            </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="stat-box p-4 bg-blue-100 rounded-lg">
               <h4 className="font-bold">Total Cases</h4>
